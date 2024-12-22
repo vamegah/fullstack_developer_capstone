@@ -13,7 +13,7 @@ from django.contrib.auth import login, authenticate
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
-# from .populate import initiate
+from .populate import initiate
 
 
 # Get an instance of a logger
@@ -46,9 +46,8 @@ def logout_request(request):
 
 
 # Create a `registration` view to handle sign up request
-# @csrf_exempt
 @csrf_exempt
-def registration_request(request):
+def registration(request):
     context = {}
 
     data = json.loads(request.body)
