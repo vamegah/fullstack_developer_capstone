@@ -13,7 +13,6 @@ const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'))
 
 mongoose.connect("mongodb://mongo_db:27017/", { 'dbName': 'dealershipsDB' });
 
-
 const Reviews = require('./review');
 
 const Dealerships = require('./dealership');
@@ -29,7 +28,6 @@ try {
 } catch (error) {
     res.status(500).json({ error: 'Error fetching documents' });
 }
-
 
 // Express route to home
 app.get('/', async (req, res) => {
@@ -76,7 +74,7 @@ app.get('/fetchDealers/:state', async (req, res) => {
     try {
         documents = await Dealerships.find({ state: stateParam });
         res.json(documents);
-    } catch (error){
+    } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Error fetching dealerships by state" });
     }
@@ -88,7 +86,7 @@ app.get('/fetchDealer/:id', async (req, res) => {
     try {
         documents = await Dealerships.find({ id: req.params.id });
         res.json(documents);
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Error fetching dealerships by ID" });
     }
