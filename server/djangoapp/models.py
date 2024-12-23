@@ -8,7 +8,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class CarMake(models.Model):
-    
     name = models.CharField(max_length=100)
     description = models.TextField()
     # Other fields as needed
@@ -18,7 +17,6 @@ class CarMake(models.Model):
 
 
 class CarModel(models.Model):
-    
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     CAR_TYPES = [
