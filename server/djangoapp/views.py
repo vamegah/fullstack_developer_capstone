@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
+
 @csrf_exempt
 def login_user(request):
     """
@@ -69,10 +70,17 @@ def registration(request):
 
     try:
         User.objects.get(username=username)
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse(
+            {
+                "userName": username,
+                "error": "Already Registered"
+            })
     except User.DoesNotExist:
         logger.debug(f"{username} is a new user")
-        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name, password=password, email=email)
+        user = User.objects.create_user(
+            username=username, first_name=first_name,
+            last_name=last_name, password=password, email=email
+        )
         login(request, user)
         return JsonResponse({"userName": username, "status": "Authenticated"})
 
@@ -90,7 +98,11 @@ def get_cars(request):
     if not CarMake.objects.exists():
         initiate()
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
+    cars = [
+        {
+            "CarModel": car_model.name,
+            "CarMake": car_model.car_make.name
+        } for car_model in car_models]
     return JsonResponse({"CarModels": cars})
 
 
